@@ -7,30 +7,25 @@
 @section('content')
 
     <style>
-        /* Custom Scrollbar Tipis & Elegan */
         .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
         .custom-scrollbar::-webkit-scrollbar-track { background: #f8f9fa; border-radius: 4px; }
         .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
         .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
 
-        /* Memberikan border halus pada semua card */
         .card {
             border: 1px solid #cbd5e1 !important;
             box-shadow: 0 2px 4px rgba(0,0,0,0.02) !important;
         }
         
-        /* Mempertahankan warna garis kiri untuk 4 kartu statistik */
         .border-l-teal { border-left: 7px solid #106770 !important; }
         .border-l-green { border-left: 7px solid #28a745 !important; }
         .border-l-red { border-left: 7px solid #dc3545 !important; }
         .border-l-purple { border-left: 7px solid #8a2be2 !important; }
 
-        /* Zebra Striping Tabel Custom */
         .table-striped-custom tbody tr:nth-of-type(odd) td { background-color: #ffffff !important; }
         .table-striped-custom tbody tr:nth-of-type(even) td { background-color: #f8fafc !important; }
         .table-striped-custom tbody tr:hover td { background-color: #f1f5f9 !important; }
 
-        /* CSS KHUSUS ANIMASI TOPBAR SHOW/HIDE ON SCROLL */
         .topbar, .navbar, header {
             transition: transform 0.4s ease-in-out, filter 0.3s ease-in-out !important;
             z-index: 1030 !important; 
@@ -39,13 +34,11 @@
             transform: translateY(-100%) !important;
         }
 
-        /* FIX SIDEBAR: MEMAKSA SIDEBAR MENUTUPI SEGALANYA */
         .sidebar, .main-sidebar, #sidebar, .offcanvas, .app-sidebar, .sidebar-wrapper {
             z-index: 99999 !important; 
             padding-top: 0 !important; 
         }
 
-        /* CSS KHUSUS UNTUK BANNER BACKGROUND BENTUK JAJAR GENJANG */
         .hero-banner {
             position: relative;
             width: 100%;
@@ -91,7 +84,6 @@
         @keyframes scrollBackgroundLeft { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
         @keyframes scrollBackgroundRight { 0% { transform: translateX(0); } 100% { transform: translateX(50%); } }
 
-        /* Efek nyala hijau sebentar untuk baris data yang baru masuk */
         @keyframes flashGreen {
             0% { background-color: #dcfce7; }
             100% { background-color: transparent; }
@@ -100,7 +92,6 @@
             animation: flashGreen 2.5s ease-out forwards;
         }
 
-        /* OVERLAY DIKEMBALIKAN SEPERTI SETTINGAN AWAL (0.9 dan 0.8) */
         .hero-overlay {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             background: linear-gradient(135deg, rgba(12, 74, 82, 0.9) 0%, rgba(16, 103, 112, 0.8) 100%); z-index: 1;
@@ -113,7 +104,7 @@
 
     <div class="mb-4 mt-2 position-relative">
         <select id="zoneSelect" class="form-select form-select-sm fw-bold shadow-sm position-absolute" style="top: 0px; right: 5px; width: auto; z-index: 3; background-color: #ffffff; color: #106770; border: 0.5px solid #cbd5e1; border-radius: 8px; cursor: pointer; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
-            <option value="hijau" selected>Monitoring Zona Kuning</option>
+            <option value="kuning" selected>Monitoring Zona Kuning</option>
             <option value="merah">Monitoring Zona Merah</option>
             <option value="semua">Monitoring Semua Zona</option>
         </select>
@@ -144,7 +135,7 @@
             <div class="hero-overlay"></div>
             <div class="hero-content">
                 <h2 id="heroTitle" style="font-weight: 900; letter-spacing: 1px; margin-bottom: 15px; font-size: 38px; text-shadow: 0 4px 10px rgba(0,0,0,0.3); transition: opacity 0.2s ease-in-out;">
-                    MONITORING ZONA HIJAU
+                    MONITORING ZONA KUNING
                 </h2>
                 <div class="d-inline-flex justify-content-center align-items-center" style="background-color: rgba(0,0,0,0.25); backdrop-filter: blur(4px); padding: 8px 24px; border-radius: 50px; border: 1px solid rgba(255,255,255,0.2); box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
                     <span id="centerDateTime" style="font-size: 15px; font-weight: bold; letter-spacing: 0.5px;">Memuat waktu...</span>
@@ -336,17 +327,24 @@
                         <h6 class="fw-bold mb-1" style="color: #1e293b; font-size: 16px;">Traffic Gerbang</h6>
                         <p class="text-muted" style="font-size: 11px;">Distribusi akses per perangkat</p>
                     </div>
-                    <select id="filterDirectionGate" class="form-select form-select-sm" style="width: auto; border-radius: 6px; font-size: 11px; font-weight: bold; cursor: pointer; border-color: #cbd5e1;">
+                    <div class="d-flex flex-column align-items-end gap-2">
+                    <select id="filterGateZone" class="form-select form-select-sm d-none" style="width: 130px; border-radius: 6px; font-size: 11px; font-weight: bold; cursor: pointer; border-color: #cbd5e1; background-color: #f1f5f9;">
+                        <option value="semua" selected>Gabungan Zona</option>
+                        <option value="kuning">Zona Kuning</option>
+                        <option value="merah">Zona Merah</option>
+                    </select>
+                    <select id="filterDirectionGate" class="form-select form-select-sm" style="width: 130px; border-radius: 6px; font-size: 11px; font-weight: bold; cursor: pointer; border-color: #cbd5e1;">
                         <option value="masuk" selected>Arah Masuk</option>
                         <option value="keluar">Arah Keluar</option>
                     </select>
+                </div>
                 </div>
                 <div class="card-body px-4 pb-4 d-flex flex-column justify-content-center align-items-center">
                     <div style="height: 300px; width: 100%;">
                         <canvas id="gateChart"></canvas>
                     </div>
                     <div id="gateLegend" class="row w-100 g-2 mt-3 pt-3" style="border-top: 1px dashed #cbd5e1; margin: 0;">
-                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -385,7 +383,7 @@
             <select id="filterKehadiranDept" class="form-select form-select-sm" style="width: auto; border-radius: 6px; font-size: 12px; font-weight: bold; cursor: pointer; border-color: #cbd5e1;">
                 <option value="hadir" selected>Hadir (Tepat Waktu)</option>
                 <option value="telat">Terlambat</option>
-                <option value="absen">Tidak Masuk(Kosong)</option>
+                <option value="absen">Tidak Masuk (Kosong)</option>
             </select>
         </div>
         <div class="card-body p-4">
@@ -400,9 +398,6 @@
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             
-            // ==========================================
-            // LOGIKA JAVASCRIPT: SHOW/HIDE TOPBAR ON SCROLL
-            // ==========================================
             let lastScrollTop = 0;
             const topNavbar = document.querySelector('.topbar, .navbar, header'); 
 
@@ -415,9 +410,6 @@
                 }, false);
             }
 
-            // ==========================================
-            // JAM & TANGGAL REALTIME
-            // ==========================================
             function updateCenterClock() {
                 const now = new Date();
                 const timeString = String(now.getHours()).padStart(2, '0') + ':' + String(now.getMinutes()).padStart(2, '0') + ':' + String(now.getSeconds()).padStart(2, '0');
@@ -430,9 +422,6 @@
             setInterval(updateCenterClock, 1000);
             updateCenterClock();
 
-            // ==========================================
-            // DATA GENERATOR: 30 DEPARTEMEN SKALA BESAR (3000++ PEGAWAI)
-            // ==========================================
             const listNamaDept = [
                 "PT CHANDRA WIJAYA UTAMA", "PT GADA ANEKA SOLUSINDO", "PLN IPS UBP JERANJANG", "PT KOPJAS", "PT HALEYORA POWER", 
                 "PT COGINDO DAYABERSAMA", "PT BARATA INDONESIA", "PT TARUNA", "DEPARTEMEN K3 & LINGKUNGAN", "DEPARTEMEN OPERASI", 
@@ -473,18 +462,33 @@
                 };
             });
 
-            const departemenHijau = departemenSemua.map(d => ({...d, masuk: Math.max(0, Math.floor(d.masuk * 0.6)), didalam: Math.max(0, Math.floor(d.didalam * 0.6)) }));
+            const departemenKuning = departemenSemua.map(d => ({...d, masuk: Math.max(0, Math.floor(d.masuk * 0.6)), didalam: Math.max(0, Math.floor(d.didalam * 0.6)) }));
             const departemenMerah = departemenSemua.map(d => ({...d, masuk: Math.max(0, Math.floor(d.masuk * 0.2)), didalam: Math.max(0, Math.floor(d.didalam * 0.2)) }));
 
             const zoneData = {
-                hijau: { title: 'MONITORING ZONA KUNING', masuk: 1850, didalam: 1600, keluar: 250, tamu: 45, gateData: { masuk: [800, 600, 300, 150], keluar: [100, 80, 50, 20] }, departemen: departemenHijau },
-                merah: { title: 'MONITORING ZONA MERAH', masuk: 1100, didalam: 950, keluar: 150, tamu: 12, gateData: { masuk: [500, 400, 150, 50], keluar: [80, 40, 20, 10] }, departemen: departemenMerah }, 
-                semua: { title: 'MONITORING SEMUA ZONA', masuk: 2950, didalam: 2550, keluar: 400, tamu: 57, gateData: { masuk: [1300, 1000, 450, 200], keluar: [180, 120, 70, 30] }, departemen: departemenSemua } 
+                kuning: { 
+                    title: 'MONITORING ZONA KUNING', 
+                    masuk: 1850, didalam: 1600, keluar: 250, tamu: 45, 
+                    gateLabels: ['Tripod', 'Motor', 'Mobil Kecil', 'Mobil Besar'],
+                    gateData: { masuk: [800, 600, 300, 150], keluar: [100, 80, 50, 20] }, 
+                    departemen: departemenKuning 
+                },
+                merah: { 
+                    title: 'MONITORING ZONA MERAH', 
+                    masuk: 1100, didalam: 950, keluar: 150, tamu: 12, 
+                    gateLabels: ['Tripod', 'Sepeda/Motor', 'Mobil Kecil/Besar', 'VIP'],
+                    gateData: { masuk: [500, 400, 150, 50], keluar: [80, 40, 20, 10] }, 
+                    departemen: departemenMerah 
+                }, 
+                semua: { 
+                    title: 'MONITORING SEMUA ZONA', 
+                    masuk: 2950, didalam: 2550, keluar: 400, tamu: 57, 
+                    gateLabels: ['Semua Tripod', 'Semua Roda 2', 'Semua Roda 4', 'Akses VIP'],
+                    gateData: { masuk: [1300, 1000, 450, 200], keluar: [180, 120, 70, 30] }, 
+                    departemen: departemenSemua 
+                } 
             };
 
-            // ==========================================
-            // DATA GENERATOR: 120 LIVE LOGS
-            // ==========================================
             const liveLogData = [];
             const firstNames = ["Budi", "Siti", "Agus", "Rina", "Andi", "Dewi", "Eko", "Sri", "Rudi", "Ayu", "Joko", "Fitri", "Dedi", "Indah"];
             const lastNames = ["Santoso", "Aminah", "Pratama", "Wijaya", "Saputra", "Lestari", "Nugroho", "Wahyu", "Hartono", "Kusuma", "Setiawan"];
@@ -505,25 +509,19 @@
             }
             liveLogData.sort((a, b) => b.waktu.localeCompare(a.waktu));
 
-            // ==========================================
-            // INISIALISASI CHART TRAFFIC GERBANG
-            // ==========================================
             const gateColors = ['#106770', '#14a2ba', '#efe62f', '#dc3545'];
-            const gateLabels = ['Tripod', 'Motor', 'Mobil Kecil', 'Mobil Besar'];
 
             const ctxGate = document.getElementById('gateChart');
             let gateChart = ctxGate ? new Chart(ctxGate.getContext('2d'), {
                 type: 'polarArea',
-                data: { labels: gateLabels, datasets: [{ data: [0, 0, 0, 0], backgroundColor: gateColors.map(c => c+'CC'), borderWidth: 2, borderColor: '#ffffff' }] },
+                data: { labels: [], datasets: [{ data: [0, 0, 0, 0], backgroundColor: gateColors.map(c => c+'CC'), borderWidth: 2, borderColor: '#ffffff' }] },
                 options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false }, tooltip: { callbacks: { label: function(context) { return ' ' + context.label + ': ' + context.raw + ' Orang'; } } } }, scales: { r: { ticks: { display: false } } } }
             }) : null;
 
-            // ==========================================
-            // LOGIKA UPDATE DASHBOARD UTAMA
-            // ==========================================
             const zoneSelect = document.getElementById('zoneSelect');
             const filterKehadiranDept = document.getElementById('filterKehadiranDept');
             const filterDirectionGate = document.getElementById('filterDirectionGate');
+            const filterGateZone = document.getElementById('filterGateZone'); // Dropdown baru
             const heroTitle = document.getElementById('heroTitle');
             const rekapBody = document.getElementById('rekapDeptBody');
             const tingkatListContainer = document.getElementById('tingkatListContainer');
@@ -546,6 +544,19 @@
                 const selectedFilter = filterKehadiranDept.value; 
                 const selectedGateDirection = filterDirectionGate ? filterDirectionGate.value : 'masuk';
 
+                // LOGIKA UNTUK MENAMPILKAN/MENYEMBUNYIKAN DROPDOWN SUB-ZONA
+                let gateZoneKey = selectedZone;
+                if (selectedZone === 'semua') {
+                    if(filterGateZone) filterGateZone.classList.remove('d-none');
+                    gateZoneKey = filterGateZone ? filterGateZone.value : 'semua';
+                } else {
+                    if(filterGateZone) {
+                        filterGateZone.classList.add('d-none');
+                        filterGateZone.value = 'semua'; // Reset otomatis saat disembunyikan
+                    }
+                }
+                const dataGate = zoneData[gateZoneKey];
+
                 if(!isSimulating && heroTitle) { 
                     heroTitle.style.opacity = 0; 
                     setTimeout(() => { heroTitle.innerText = data.title; heroTitle.style.opacity = 1; }, 200); 
@@ -564,14 +575,18 @@
                 }
 
                 if(gateChart) {
-                    const currentGateData = data.gateData[selectedGateDirection];
+                    // Pakai data dari dataGate (bukan data utama) agar chart gerbang bisa terisolasi
+                    const currentGateData = dataGate.gateData[selectedGateDirection];
+                    const currentGateLabels = dataGate.gateLabels; 
+                    
+                    gateChart.data.labels = currentGateLabels; 
                     gateChart.data.datasets[0].data = currentGateData;
                     gateChart.update();
 
                     const gateLegend = document.getElementById('gateLegend');
                     if(gateLegend) {
                         let gHtml = '';
-                        gateLabels.forEach((label, i) => {
+                        currentGateLabels.forEach((label, i) => {
                             gHtml += `
                                 <div class="col-6">
                                     <div class="d-flex align-items-center justify-content-between pe-3 mb-2">
@@ -641,15 +656,12 @@
             if(zoneSelect) zoneSelect.addEventListener('change', () => updateDashboard(false));
             if(filterKehadiranDept) filterKehadiranDept.addEventListener('change', () => updateDashboard(false));
             if(filterDirectionGate) filterDirectionGate.addEventListener('change', () => updateDashboard(false));
+            if(filterGateZone) filterGateZone.addEventListener('change', () => updateDashboard(false)); // Listener baru
             
             updateDashboard(false);
 
-            // ==========================================
-            // FIX: INISIALISASI TREN KEHADIRAN SKALA MAKS 3000
-            // ==========================================
             const labelsWaktu = ['06:00', '07:00', '08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00'];
             
-            // Angka disesuaikan agar puncaknya (Peak) menyentuh angka tinggi
             const dataMasukTepat = [400, 1800, 200, 50, 0, 0, 0, 0, 0, 0, 0, 0];
             const dataMasukTelat = [0, 0, 400, 120, 30, 0, 0, 0, 0, 0, 0, 0];
             const dataKeluarTepat = [0, 0, 0, 0, 0, 0, 50, 30, 20, 100, 2400, 150];
@@ -659,7 +671,6 @@
             const ctxLine = document.getElementById('trendLineChart');
             let trendBarChart, trendLineChart;
 
-            // Setting Y Axis agar mentok maksimal di angka 3000
             const yAxisConfig = { 
                 beginAtZero: true, 
                 suggestedMax: 3000, 
@@ -691,9 +702,6 @@
                 });
             }
 
-            // ==========================================
-            // LOGIKA PAGINATION LIVE LOG GERBANG
-            // ==========================================
             const liveLogBody = document.getElementById('liveLogBody');
             const logDataCountText = document.getElementById('logDataCountText');
             const logRowLimitSelect = document.getElementById('logRowLimitSelect');
@@ -754,9 +762,6 @@
 
             renderLiveLogs();
 
-            // ==========================================
-            // NEW: MESIN SIMULASI REALTIME (AUTO UPDATE TIAP 3 DETIK)
-            // ==========================================
             setInterval(() => {
                 const isMasuk = Math.random() > 0.3; 
                 const count = Math.floor(Math.random() * 4) + 1; 
@@ -774,9 +779,21 @@
                     }
                 }
 
+                // Logika agar saat Semua Zona terpilih, simulasi tetap mengisi data Kuning/Merah
                 const randomGate = Math.floor(Math.random() * 4);
-                if (isMasuk) data.gateData.masuk[randomGate] += count;
-                else data.gateData.keluar[randomGate] += count;
+                if (isMasuk) {
+                    data.gateData.masuk[randomGate] += count;
+                    if(selectedZone === 'semua') {
+                        const subZone = Math.random() > 0.5 ? 'kuning' : 'merah';
+                        zoneData[subZone].gateData.masuk[randomGate] += count;
+                    }
+                } else {
+                    data.gateData.keluar[randomGate] += count;
+                    if(selectedZone === 'semua') {
+                        const subZone = Math.random() > 0.5 ? 'kuning' : 'merah';
+                        zoneData[subZone].gateData.keluar[randomGate] += count;
+                    }
+                }
 
                 const randomDeptIndex = Math.floor(Math.random() * 15);
                 const dept = data.departemen[randomDeptIndex];

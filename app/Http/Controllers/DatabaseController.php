@@ -15,21 +15,18 @@ class DatabaseController extends Controller
         // 2. Tentukan lokasi penyimpanan sementara di server
         $path = storage_path('app/' . $filename);
         
-        // 3. GANTI BAGIAN INI SESUAI DATABASE POSTGRESQL MILIKMU!
-        $db_user = "postgres"; // username postgres-mu
-        $db_pass = "password_kamu"; // password postgres-mu
-        $db_name = "nama_database_pln"; // nama database-mu
-        $db_host = "localhost";
+        // 3.  KREDENSIAL 
+        $db_user = env('DB_USERNAME');
+        $db_pass = env('DB_PASSWORD');
+        $db_name = env('DB_DATABASE');
+        $db_host = env('DB_HOST');
         
-        // 4. Perintah terminal untuk export PostgreSQL (pg_dump)
         $command = "PGPASSWORD='{$db_pass}' pg_dump -U {$db_user} -h {$db_host} {$db_name} > {$path}";
         
-        // Eksekusi perintah di atas
         exec($command);
         
-        // Cek apakah file berhasil dibuat
         if (file_exists($path)) {
-            // Kirim file ke browser untuk didownload, lalu hapus filenya dari server agar tidak memenuhi memori
+
             return Response::download($path)->deleteFileAfterSend(true);
         } else {
             return back()->with('error', 'Gagal membuat backup database.');

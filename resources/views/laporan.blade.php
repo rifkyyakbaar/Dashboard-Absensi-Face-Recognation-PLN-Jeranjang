@@ -7,7 +7,6 @@
 @section('content')
 
     <style>
-        /* Custom Scrollbar Tipis */
         .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
         .custom-scrollbar::-webkit-scrollbar-track { background: #f1f5f9; border-radius: 4px; }
         .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
@@ -22,12 +21,10 @@
             letter-spacing: 0.5px;
         }
 
-        /* Zebra Striping Tabel */
         .table-striped-custom tbody tr:nth-of-type(odd) td { background-color: #ffffff !important; }
         .table-striped-custom tbody tr:nth-of-type(even) td { background-color: #f8fafc !important; }
         .table-striped-custom tbody tr:hover td { background-color: #f1f5f9 !important; }
 
-        /* CSS ANIMASI BACKGROUND HEADER */
         .bg-layer-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; }
         .bg-layer-top { position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; }
         .scrolling-bg-top { position: absolute; top: 0; left: -100%; height: 100%; display: flex; width: 200%; animation: scrollBackgroundRight 40s linear infinite; }
@@ -35,15 +32,11 @@
         
         @keyframes scrollBackgroundRight { 0% { transform: translateX(0); } 100% { transform: translateX(50%); } }
 
-        /* Overlay Khas PLN IP */
         .hero-overlay {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             background: linear-gradient(135deg, rgba(12, 74, 82, 0.85) 0%, rgba(20, 162, 186, 0.75) 100%); z-index: 1;
         }
 
-        /* ========================================================
-           TAMBAHAN CSS UNTUK MODAL PROFILE
-           ======================================================== */
         .clickable-name {
             color: #125d72;
             cursor: pointer;
@@ -72,9 +65,6 @@
         }
         .truncate-text { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%; display: inline-block; }
 
-        /* ========================================================
-           GITHUB STYLE HEATMAP CSS (REVISI FIT-WIDTH TANPA SCROLL)
-           ======================================================== */
         .heatmap-wrapper { 
             display: flex; align-items: flex-start; width: 100%; 
             margin-top: 5px; padding-bottom: 5px; overflow: hidden;
@@ -82,14 +72,14 @@
         .heatmap-labels { 
             display: grid; grid-template-rows: repeat(7, 11px); gap: 3px; 
             font-size: 9px; color: #94a3b8; margin-right: 8px; text-align: right;
-            margin-top: 16px; /* Turun menyesuaikan tinggi label bulan di sebelahnya */
+            margin-top: 16px;
             font-weight: 600; line-height: 11px; width: 20px; flex-shrink: 0;
         }
         .heatmap-content {
             display: flex; flex-direction: column;
         }
         .heatmap-content.full-width {
-            width: 100%; flex-grow: 1; /* Expand full width */
+            width: 100%; flex-grow: 1;
         }
         .heatmap-header {
             position: relative; height: 16px; width: 100%;
@@ -102,7 +92,7 @@
             grid-auto-columns: 11px; grid-auto-flow: column; gap: 3px; 
         }
         .heatmap-content.full-width .heatmap-container {
-            width: 100%; justify-content: space-between; /* Fit otomatis 1 tahun full */
+            width: 100%; justify-content: space-between;
         }
         .heatmap-box { 
             width: 11px; height: 11px; border-radius: 2px; cursor: pointer; 
@@ -111,7 +101,6 @@
         .heatmap-box.hidden { background-color: transparent; pointer-events: none; }
         .heatmap-box:hover:not(.hidden) { transform: scale(1.4); z-index: 10; box-shadow: 0 2px 5px rgba(0,0,0,0.3); }
         
-        /* Warna Status Heatmap Persis GitHub/Referensi */
         .bg-hadir { background-color: #0c5a66; }  
         .bg-telat { background-color: #fde047; }  
         .bg-alpha { background-color: #e13b48; }  
@@ -429,9 +418,6 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             
-            // =========================================================================
-            // 1. SISTEM INIT & GENERATOR DATA LOGIS
-            // =========================================================================
             const tableBody = document.getElementById('tableBody');
             const dataCountText = document.getElementById('dataCountText');
             const totalDataBadge = document.getElementById('totalDataBadge');
@@ -439,7 +425,6 @@
             const btnNextPage = document.getElementById('btnNextPage');
             const rowLimitSelect = document.getElementById('rowLimitSelect');
             
-            // Daftar Pegawai Fiktif
             const employeesList = [
                 { id: "199001", name: "Budi Santoso", dept: "PT CHANDRA WIJAYA UTAMA" },
                 { id: "199002", name: "Siti Aminah", dept: "PT KOPJAS" },
@@ -461,7 +446,6 @@
             const listBulanIndo = ["", "Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
             const listBulanSingkat = ["", "Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Agu", "Sep", "Okt", "Nov", "Des"];
 
-            // Fetch API Hari Libur Nasional
             async function initSystem() {
                 try {
                     const response = await fetch(`https://api-harilibur.vercel.app/api?year=2026`);
@@ -511,9 +495,6 @@
                 allData.sort((a,b) => b.date.localeCompare(a.date));
             }
 
-            // =========================================================================
-            // 2. RENDER TABEL & PAGINATION
-            // =========================================================================
             function renderTable() {
                 const totalRecords = filteredData.length;
                 const totalPages = Math.ceil(totalRecords / rowsPerPage);
@@ -619,9 +600,6 @@
                 XLSX.writeFile(wb, 'Laporan_Kehadiran_FILO.xlsx');
             });
 
-            // =========================================================================
-            // 3. LOGIKA MODAL PROFILE & SMART CALENDAR ENGINE (SINKRON DATA ASLI)
-            // =========================================================================
             let profileChart = null;
             let currentEmployee = { name: '', id: '', dept: '', stats: null, filterName: '' };
 
@@ -637,7 +615,6 @@
                 let dailyLog = []; 
                 let grandTotal = { totalDays: 0, workingDays: 0, weekendDays: 0, liburNasionalDays: 0, hadir: 0, telat: 0, alpha: 0 };
 
-                // LOGIKA GENERATE KALENDER GITHUB (SESUAI FILTER BULAN)
                 let renderStartMonth = filterStart;
                 let renderEndMonth = monthStr === 'semua' ? 12 : filterEnd;
 
@@ -813,19 +790,12 @@
                 bootstrap.Modal.getOrCreateInstance(document.getElementById('profileModal')).show();
             }
 
-            // =========================================================================
-            // 4. EXPORT EXCEL KHUSUS PROFIL INDIVIDU (LOG HARIAN JIKA FILTER BULAN)
-            // =========================================================================
-            // =========================================================================
-            // 4. EXPORT EXCEL KHUSUS PROFIL INDIVIDU (LOG HARIAN JIKA FILTER BULAN)
-            // =========================================================================
             document.getElementById('btnModalExport').addEventListener('click', function() {
                 let exportData = [];
                 const monthVal = document.getElementById('modalBulan').value;
                 
-                // [BARU] Mengambil nama bulan dari dropdown filter
                 const monthText = document.getElementById('modalBulan').options[document.getElementById('modalBulan').selectedIndex].text;
-                // [BARU] Membuat logika teks dinamis
+
                 let pesanFilter = monthVal === 'semua' ? 'sepanjang tahun' : `bulan ${monthText}`;
 
                 if (monthVal === 'semua') {
