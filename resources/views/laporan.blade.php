@@ -6,115 +6,7 @@
 
 @section('content')
 
-    <style>
-        .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
-        .custom-scrollbar::-webkit-scrollbar-track { background: #f1f5f9; border-radius: 4px; }
-        .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
-        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
-        
-        .form-label-custom {
-            font-size: 11px; 
-            color: #475569; 
-            font-weight: 800; 
-            text-transform: uppercase;
-            margin-bottom: 6px;
-            letter-spacing: 0.5px;
-        }
-
-        .table-striped-custom tbody tr:nth-of-type(odd) td { background-color: #ffffff !important; }
-        .table-striped-custom tbody tr:nth-of-type(even) td { background-color: #f8fafc !important; }
-        .table-striped-custom tbody tr:hover td { background-color: #f1f5f9 !important; }
-
-        .bg-layer-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; }
-        .bg-layer-top { position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; }
-        .scrolling-bg-top { position: absolute; top: 0; left: -100%; height: 100%; display: flex; width: 200%; animation: scrollBackgroundRight 40s linear infinite; }
-        .scrolling-bg-top img { width: calc(100% / 12); height: 100%; object-fit: cover; flex-shrink: 0; }
-        
-        @keyframes scrollBackgroundRight { 0% { transform: translateX(0); } 100% { transform: translateX(50%); } }
-
-        .hero-overlay {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(135deg, rgba(12, 74, 82, 0.85) 0%, rgba(20, 162, 186, 0.75) 100%); z-index: 1;
-        }
-
-        .clickable-name {
-            color: #125d72;
-            cursor: pointer;
-            font-weight: bold;
-            transition: 0.2s;
-            border-bottom: 1px dashed transparent;
-        }
-        .clickable-name:hover {
-            color: #14a2ba;
-            border-bottom: 1px dashed #14a2ba;
-        }
-        .modal-content { border-radius: 15px; border: none; overflow: hidden; }
-        .modal-header-custom { background-color: #125d72; color: white; padding: 20px; }
-        .profile-img-placeholder {
-            width: 80px; height: 80px; border-radius: 50%;
-            background-color: #e2e8f0; display: flex; align-items: center;
-            justify-content: center; border: 3px solid white; box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-        }
-        .stat-box {
-            background: #f8fafc; border-radius: 8px; padding: 10px;
-            border: 1px solid #e2e8f0; text-align: center;
-            transition: 0.3s; height: 100%; display: flex; flex-direction: column; justify-content: center;
-        }
-        .stat-box:hover {
-            background: #ffffff; border-color: #14a2ba; box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-        }
-        .truncate-text { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%; display: inline-block; }
-
-        .heatmap-wrapper { 
-            display: flex; align-items: flex-start; width: 100%; 
-            margin-top: 5px; padding-bottom: 5px; overflow: hidden;
-        }
-        .heatmap-labels { 
-            display: grid; grid-template-rows: repeat(7, 11px); gap: 3px; 
-            font-size: 9px; color: #94a3b8; margin-right: 8px; text-align: right;
-            margin-top: 16px;
-            font-weight: 600; line-height: 11px; width: 20px; flex-shrink: 0;
-        }
-        .heatmap-content {
-            display: flex; flex-direction: column;
-        }
-        .heatmap-content.full-width {
-            width: 100%; flex-grow: 1;
-        }
-        .heatmap-header {
-            position: relative; height: 16px; width: 100%;
-        }
-        .heatmap-month-label {
-            position: absolute; font-size: 10px; color: #64748b; font-weight: bold; top: 0;
-        }
-        .heatmap-container { 
-            display: grid; grid-template-rows: repeat(7, 11px); 
-            grid-auto-columns: 11px; grid-auto-flow: column; gap: 3px; 
-        }
-        .heatmap-content.full-width .heatmap-container {
-            width: 100%; justify-content: space-between;
-        }
-        .heatmap-box { 
-            width: 11px; height: 11px; border-radius: 2px; cursor: pointer; 
-            transition: transform 0.1s, box-shadow 0.1s;
-        }
-        .heatmap-box.hidden { background-color: transparent; pointer-events: none; }
-        .heatmap-box:hover:not(.hidden) { transform: scale(1.4); z-index: 10; box-shadow: 0 2px 5px rgba(0,0,0,0.3); }
-        
-        .bg-hadir { background-color: #0c5a66; }  
-        .bg-telat { background-color: #fde047; }  
-        .bg-alpha { background-color: #e13b48; }  
-        .bg-libur { background-color: #ffb4b4; }  
-        .bg-weekend { background-color: #e2e8f0; } 
-        .bg-empty-future { background-color: #f8fafc; border: 1px dashed #cbd5e1; } 
-        
-        .heatmap-legend { 
-            display: flex; gap: 15px; font-size: 10px; margin-top: 15px; 
-            align-items: center; flex-wrap: wrap; color: #475569; font-weight: bold;
-            justify-content: center; background: #f8fafc; padding: 10px; border-radius: 8px; border: 1px solid #e2e8f0;
-        }
-        .legend-box { width: 10px; height: 10px; border-radius: 2px; display: inline-block; margin-right: 6px; vertical-align: middle; }
-    </style>
+    <link rel="stylesheet" href="{{ asset('css/laporan.css') }}">
 
     <div class="mb-4" style="position: relative; width: 100%; min-height: 100px; border-radius: 12px; overflow: hidden; display: flex; align-items: center; box-shadow: 0 4px 10px rgba(0,0,0,0.05); padding: 20px 30px;">
         <div class="bg-layer-container">
@@ -184,7 +76,7 @@
                             <select name="status" id="filterStatus" class="form-select form-select-sm py-2" style="border-radius: 6px; border-color: #cbd5e1; color: #475569;">
                                 <option value="semua" selected>Semua Status</option>
                                 <option value="hadir">Hadir</option>
-                                <option value="terlambat">Terlambat</option>
+                                <option value="lembur">Shift / Lembur</option>
                             </select>
                         </div>
                         <div class="mb-3">
@@ -221,7 +113,7 @@
                 <div class="card-header bg-white border-bottom p-4 d-flex justify-content-between align-items-center flex-wrap gap-2">
                     <div>
                         <h5 class="fw-black mb-1" id="tableTitle" style="color: #1e293b;">Data Absensi April 2026</h5>
-                        <p class="text-muted mb-0" style="font-size: 12px;">Menerapkan logika <b>First-In Last-Out</b>. Klik nama untuk melihat statistik individu.</p>
+                        <p class="text-muted mb-0" style="font-size: 12px;">Menerapkan logika <b>First-In Last-Out</b>. Klik nama untuk melihat statistik individu atau klik ikon info untuk detail riwayat harian.</p>
                     </div>
                     <span id="totalDataBadge" class="d-inline-flex align-items-center justify-content-center fw-bold" style="background-color: #f1f5f9; border: 1px solid #cbd5e1; border-radius: 20px; padding: 6px 16px; color: #475569; font-size: 12px;">
                         Total: Memuat...
@@ -239,7 +131,8 @@
                                     <th class="py-3" style="color: #6c757d; font-size: 11px; font-weight: bold; letter-spacing: 0.5px;">DEPARTEMEN</th>
                                     <th class="py-3" style="color: #6c757d; font-size: 11px; font-weight: bold; letter-spacing: 0.5px;">JAM MASUK (AWAL)</th>
                                     <th class="py-3" style="color: #6c757d; font-size: 11px; font-weight: bold; letter-spacing: 0.5px;">JAM KELUAR (AKHIR)</th>
-                                    <th class="py-3 pe-4" style="color: #6c757d; font-size: 11px; font-weight: bold; letter-spacing: 0.5px;">STATUS</th>
+                                    <th class="py-3" style="color: #6c757d; font-size: 11px; font-weight: bold; letter-spacing: 0.5px;">STATUS</th>
+                                    <th class="py-3 pe-4 text-center" style="color: #6c757d; font-size: 11px; font-weight: bold; letter-spacing: 0.5px;">DETAIL</th>
                                 </tr>
                             </thead>
                             <tbody id="tableBody">
@@ -331,14 +224,14 @@
                             <div class="row g-2">
                                 <div class="col-4">
                                     <div class="stat-box p-2">
-                                        <small class="d-block text-muted fw-bold" style="font-size:10px;">Hadir (Tepat)</small>
+                                        <small class="d-block text-muted fw-bold" style="font-size:10px;">Hadir</small>
                                         <b class="fs-5 text-dark" id="sHadir">0</b>
                                     </div>
                                 </div>
                                 <div class="col-4">
                                     <div class="stat-box p-2">
-                                        <small class="d-block text-muted fw-bold" style="font-size:10px;">Terlambat</small>
-                                        <b class="fs-5 text-warning" id="sTelat">0</b>
+                                        <small class="d-block text-muted fw-bold" style="font-size:10px;">Kerja Libur</small>
+                                        <b class="fs-5 text-info" id="sLembur">0</b>
                                     </div>
                                 </div>
                                 <div class="col-4">
@@ -349,7 +242,7 @@
                                 </div>
                                 <div class="col-4">
                                     <div class="stat-box p-2">
-                                        <small class="d-block text-muted fw-bold" style="font-size:10px;">On-Time Rate</small>
+                                        <small class="d-block text-muted fw-bold" style="font-size:10px;">Tingkat Kehadiran</small>
                                         <b class="fs-5 text-success" id="sPersen">0%</b>
                                     </div>
                                 </div>
@@ -388,16 +281,14 @@
                                     <div style="visibility: hidden;">Sab</div>
                                 </div>
                                 <div id="heatmapContentWrapper" class="heatmap-content">
-                                    <div id="heatmapMonthLabels" class="heatmap-header">
-                                        </div>
-                                    <div id="heatmapContainer" class="heatmap-container">
-                                        </div>
+                                    <div id="heatmapMonthLabels" class="heatmap-header"></div>
+                                    <div id="heatmapContainer" class="heatmap-container"></div>
                                 </div>
                             </div>
                             
                             <div class="heatmap-legend">
-                                <div><span class="legend-box bg-hadir"></span> Hadir Tepat Waktu</div>
-                                <div><span class="legend-box bg-telat"></span> Terlambat</div>
+                                <div><span class="legend-box bg-hadir"></span> Hadir Normal</div>
+                                <div><span class="legend-box bg-lembur"></span> Kerja Shift / Libur</div>
                                 <div><span class="legend-box bg-alpha"></span> Tidak Hadir</div>
                                 <div><span class="legend-box bg-libur"></span> Libur Nasional</div>
                                 <div><span class="legend-box bg-weekend"></span> Akhir Pekan</div>
@@ -405,6 +296,36 @@
                         </div>
                     </div>
 
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalDetailRiwayat" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content shadow-lg" style="border-radius: 16px; border: none; overflow: hidden;">
+                <div class="modal-header border-0 text-white" style="background-color: #125d72;">
+                    <h6 class="modal-title fw-bold"><i class="fa-solid fa-clock-rotate-left me-2"></i>Riwayat Akses Harian</h6>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <div class="d-flex align-items-center mb-4 pb-3 border-bottom">
+                        <div class="flex-shrink-0">
+                            <div class="bg-light p-3 rounded-circle" style="width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; border: 2px solid #e2e8f0;">
+                                <i class="fa-solid fa-user text-muted fs-5"></i>
+                            </div>
+                        </div>
+                        <div class="ms-3">
+                            <h6 id="detailNama" class="fw-bold mb-0 text-dark">Nama Pegawai</h6>
+                            <small id="detailInfo" class="text-muted" style="font-size: 12px;">ID | Tanggal</small>
+                        </div>
+                    </div>
+
+                    <div id="timelineContainer" class="timeline custom-scrollbar" style="max-height: 350px; overflow-y: auto; padding-right: 10px;">
+                        </div>
+                </div>
+                <div class="modal-footer border-0 bg-light py-2">
+                    <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Tutup</button>
                 </div>
             </div>
         </div>
@@ -473,20 +394,21 @@
                         let isWeekend = (dateObj.getDay() === 0 || dateObj.getDay() === 6);
                         let isHoliday = liburNasional.includes(dateString);
 
-                        if (isWeekend || isHoliday) continue; 
+                        // Peluang masuk hari libur disetel ke 15% (Simulasi Kerja Shift)
+                        let probabilitasMasuk = (isWeekend || isHoliday) ? 0.15 : 0.90;
 
                         employeesList.forEach(emp => {
-                            if (Math.random() < 0.90) { 
-                                let isLate = Math.random() > 0.85; 
-                                let hourIn = isLate ? '08' : '07';
-                                let minIn = isLate ? String(Math.floor(Math.random() * 45) + 1).padStart(2, '0') : String(Math.floor(Math.random() * 45) + 10).padStart(2, '0');
+                            if (Math.random() < probabilitasMasuk) { 
+                                let hourIn = '07';
+                                let minIn = String(Math.floor(Math.random() * 45) + 10).padStart(2, '0');
                                 let hourOut = Math.random() > 0.4 ? '16' : '17';
                                 let minOut = String(Math.floor(Math.random() * 59)).padStart(2, '0');
 
+                                // Status pokoknya direkam 'HADIR' (Nanti diolah detail di render)
                                 allData.push({
                                     date: dateString, id: emp.id, name: emp.name, dept: emp.dept,
                                     inTime: `${hourIn}:${minIn}:00`, outTime: `${hourOut}:${minOut}:00`,
-                                    status: isLate ? 'TERLAMBAT' : 'HADIR'
+                                    status: 'HADIR' 
                                 });
                             }
                         });
@@ -498,7 +420,6 @@
             function renderTable() {
                 const totalRecords = filteredData.length;
                 const totalPages = Math.ceil(totalRecords / rowsPerPage);
-                
                 if (currentPage > totalPages) currentPage = totalPages || 1;
 
                 const start = (currentPage - 1) * rowsPerPage;
@@ -507,13 +428,35 @@
 
                 let html = '';
                 if (paginated.length === 0) {
-                    html = `<tr><td colspan="7" class="text-center py-5 text-muted"><i class="fa-solid fa-folder-open mb-3" style="font-size: 40px; color: #cbd5e1;"></i><br><b style="font-size: 15px;">Data tidak ditemukan</b></td></tr>`;
+                    html = `<tr><td colspan="8" class="text-center py-5 text-muted"><i class="fa-solid fa-folder-open mb-3" style="font-size: 40px; color: #cbd5e1;"></i><br><b style="font-size: 15px;">Data tidak ditemukan</b></td></tr>`;
                 } else {
                     paginated.forEach(row => {
-                        let badgeBg = row.status === 'TERLAMBAT' ? '#fffbeb' : '#dcfce7';
-                        let badgeText = row.status === 'TERLAMBAT' ? '#d97706' : '#125d72';
-                        let inColor = row.status === 'TERLAMBAT' ? '#d97706' : '#6c757d';
-                        let inWeight = row.status === 'TERLAMBAT' ? 'bold' : 'normal';
+                        let badgeBg = '#dcfce7'; 
+                        let badgeText = '#125d72'; 
+                        let inColor = '#6c757d';
+                        let inWeight = 'bold';
+
+                        let rowDate = new Date(row.date);
+                        let isWknd = (rowDate.getDay() === 0 || rowDate.getDay() === 6);
+                        let isHldy = liburNasional.includes(row.date);
+                        
+                        let displayStatus = 'HADIR';
+                        if(isWknd || isHldy) {
+                            displayStatus = 'SHIFT / LEMBUR';
+                            badgeBg = '#e0f2fe'; 
+                            badgeText = '#0369a1'; 
+                        }
+
+                        // LOGIKA AUTO-FLAGGING SHIFT
+                        let hourIn = parseInt(row.inTime.substring(0, 2));
+                        let shiftFlag = '';
+                        if (hourIn >= 5 && hourIn < 13) {
+                            shiftFlag = '<span class="badge ms-2" style="background-color: #fffbeb; color: #d97706; border: 1px solid #fde68a; font-size: 9px;"><i class="fa-solid fa-sun me-1"></i>Pagi</span>';
+                        } else if (hourIn >= 13 && hourIn < 20) {
+                            shiftFlag = '<span class="badge ms-2" style="background-color: #f0fdf4; color: #15803d; border: 1px solid #bbf7d0; font-size: 9px;"><i class="fa-solid fa-cloud-sun me-1"></i>Siang</span>';
+                        } else {
+                            shiftFlag = '<span class="badge ms-2" style="background-color: #f8fafc; color: #334155; border: 1px solid #cbd5e1; font-size: 9px;"><i class="fa-solid fa-moon me-1"></i>Malam</span>';
+                        }
 
                         html += `
                             <tr class="data-row">
@@ -521,9 +464,14 @@
                                 <td class="text-muted val-id">${row.id}</td>
                                 <td><span class="clickable-name val-name" onclick="showProfile('${row.name}', '${row.id}', '${row.dept}')">${row.name}</span></td>
                                 <td class="text-muted val-dept" style="font-size: 12px;">${row.dept}</td>
-                                <td class="val-in" style="color: ${inColor}; font-weight: ${inWeight};">${row.inTime}</td>
+                                <td class="val-in" style="color: ${inColor}; font-weight: ${inWeight};">${row.inTime} ${shiftFlag}</td>
                                 <td class="text-primary fw-bold val-out">${row.outTime}</td>
-                                <td class="pe-4 val-status"><span class="badge" style="background-color: ${badgeBg}; color: ${badgeText}; padding:6px 12px; border-radius:4px; font-weight:600;">${row.status}</span></td>
+                                <td class="val-status"><span class="badge" style="background-color: ${badgeBg}; color: ${badgeText}; padding:6px 12px; border-radius:4px; font-weight:600;">${displayStatus}</span></td>
+                                <td class="pe-4 text-center">
+                                    <button class="btn btn-detail" onclick="lihatRiwayat('${row.name}', '${row.date}', '${row.id}')" title="Lihat Detail Riwayat Harian">
+                                        <i class="fa-solid fa-circle-info"></i>
+                                    </button>
+                                </td>
                             </tr>
                         `;
                     });
@@ -545,7 +493,7 @@
             function applyFilters() {
                 const bulan = document.getElementById('filterBulan').value;
                 const tahun = document.getElementById('filterTahun').value;
-                const status = document.getElementById('filterStatus').value;
+                const status = document.getElementById('filterStatus').value; // Mengambil dari opsi (Semua / Hadir / Lembur)
                 const dept = document.getElementById('filterDepartemen').value;
                 const search = document.getElementById('karyawanCustom').value.toLowerCase();
                 const searchMode = document.getElementById('karyawanSelect').value;
@@ -556,10 +504,16 @@
                 filteredData = allData.filter(d => {
                     const matchBulan = (bulan === 'semua') || (bulan === d.date.substring(5, 7));
                     const matchTahun = (tahun === d.date.substring(0, 4));
-                    const matchStatus = (status === 'semua') || (d.status.toLowerCase() === status);
                     const matchDept = (dept === 'semua') || (d.dept === dept);
                     let matchSearch = true;
                     if (searchMode === 'lainnya' && search !== '') matchSearch = d.name.toLowerCase().includes(search) || d.id.includes(search);
+
+                    // Filter Status Dinamis (Berdasarkan Cek Libur)
+                    let dDate = new Date(d.date);
+                    let isDLibur = (dDate.getDay() === 0 || dDate.getDay() === 6 || liburNasional.includes(d.date));
+                    let actualStatus = isDLibur ? 'lembur' : 'hadir';
+                    
+                    const matchStatus = (status === 'semua') || (actualStatus === status);
 
                     return matchBulan && matchTahun && matchStatus && matchDept && matchSearch;
                 });
@@ -586,20 +540,6 @@
             document.getElementById('btnPrevPage').addEventListener('click', function() { if (currentPage > 1) { currentPage--; renderTable(); } });
             document.getElementById('btnNextPage').addEventListener('click', function() { currentPage++; renderTable(); });
 
-            document.getElementById('btnExportLaporan').addEventListener('click', function(e) {
-                e.preventDefault();
-                if(filteredData.length === 0) return Swal.fire({ icon: 'error', title: 'Data Kosong' });
-
-                let exportData = filteredData.map(d => ({
-                    "Tanggal": d.date, "Personnel ID": d.id, "Nama Karyawan": d.name, "Departemen": d.dept,
-                    "Jam Masuk (Pertama)": d.inTime, "Jam Keluar (Terakhir)": d.outTime, "Status": d.status
-                }));
-                const ws = XLSX.utils.json_to_sheet(exportData);
-                const wb = XLSX.utils.book_new();
-                XLSX.utils.book_append_sheet(wb, ws, "Laporan_Absensi");
-                XLSX.writeFile(wb, 'Laporan_Kehadiran_FILO.xlsx');
-            });
-
             let profileChart = null;
             let currentEmployee = { name: '', id: '', dept: '', stats: null, filterName: '' };
 
@@ -613,7 +553,7 @@
 
                 let monthlyBreakdown = [];
                 let dailyLog = []; 
-                let grandTotal = { totalDays: 0, workingDays: 0, weekendDays: 0, liburNasionalDays: 0, hadir: 0, telat: 0, alpha: 0 };
+                let grandTotal = { totalDays: 0, workingDays: 0, weekendDays: 0, liburNasionalDays: 0, hadir: 0, telat: 0, alpha: 0, lembur: 0 };
 
                 let renderStartMonth = filterStart;
                 let renderEndMonth = monthStr === 'semua' ? 12 : filterEnd;
@@ -621,7 +561,7 @@
                 for (let m = renderStartMonth; m <= renderEndMonth; m++) {
                     let m_totalDays = new Date(year, m, 0).getDate();
                     let m_weekendDays = 0, m_liburNasionalDays = 0, m_workingDays = 0;
-                    let m_hadir = 0, m_telat = 0, m_alpha = 0; 
+                    let m_hadir = 0, m_telat = 0, m_alpha = 0, m_lembur = 0; 
 
                     for (let d = 1; d <= m_totalDays; d++) {
                         let currentDate = new Date(year, m - 1, d);
@@ -638,18 +578,26 @@
                         if (m > CURRENT_SIMULATION_MONTH) {
                             dayStatus = 'empty-future';
                         } else {
-                            if (isWeekend) {
-                                m_weekendDays++; dayStatus = 'weekend';
-                            } else if (isHoliday) {
-                                m_liburNasionalDays++; dayStatus = 'libur';
+                            let record = empData.find(r => r.date === dateString);
+                            
+                            if (isWeekend || isHoliday) {
+                                // JIKA HARI LIBUR
+                                if (record) {
+                                    m_lembur++;
+                                    dayStatus = 'lembur'; 
+                                    actualInTime = record.inTime;
+                                    actualOutTime = record.outTime;
+                                } else {
+                                    if (isWeekend) { m_weekendDays++; dayStatus = 'weekend'; } 
+                                    else { m_liburNasionalDays++; dayStatus = 'libur'; }
+                                }
                             } else {
+                                // JIKA HARI KERJA NORMAL
                                 m_workingDays++;
-                                let record = empData.find(r => r.date === dateString);
                                 if (record) {
                                     actualInTime = record.inTime;
                                     actualOutTime = record.outTime;
-                                    if (record.status === 'TERLAMBAT') { m_telat++; dayStatus = 'telat'; }
-                                    else { m_hadir++; dayStatus = 'hadir'; }
+                                    m_hadir++; dayStatus = 'hadir'; 
                                 } else {
                                     m_alpha++; dayStatus = 'alpha'; 
                                 }
@@ -664,11 +612,12 @@
                         monthlyBreakdown.push({
                             monthName: listBulanIndo[m], year: year, totalDays: m_totalDays, workingDays: m_workingDays,
                             weekendDays: m_weekendDays, liburNasionalDays: m_liburNasionalDays,
-                            hadir: m_hadir, telat: m_telat, alpha: m_alpha, persen: m_persen
+                            hadir: m_hadir, telat: m_telat, alpha: m_alpha, lembur: m_lembur, persen: m_persen
                         });
 
                         grandTotal.totalDays += m_totalDays; grandTotal.workingDays += m_workingDays; grandTotal.weekendDays += m_weekendDays;
-                        grandTotal.liburNasionalDays += m_liburNasionalDays; grandTotal.hadir += m_hadir; grandTotal.telat += m_telat; grandTotal.alpha += m_alpha;
+                        grandTotal.liburNasionalDays += m_liburNasionalDays; grandTotal.hadir += m_hadir; grandTotal.telat += m_telat; 
+                        grandTotal.alpha += m_alpha; grandTotal.lembur += m_lembur;
                     }
                 }
 
@@ -718,11 +667,11 @@
 
                     let bgClass = '', textStatus = '';
                     switch(day.status) {
-                        case 'hadir': bgClass = 'bg-hadir'; textStatus = 'Hadir Tepat Waktu'; break;
-                        case 'telat': bgClass = 'bg-telat'; textStatus = 'Terlambat'; break;
+                        case 'hadir': bgClass = 'bg-hadir'; textStatus = 'Hadir'; break;
                         case 'alpha': bgClass = 'bg-alpha'; textStatus = 'Tidak Hadir (Alpha)'; break;
                         case 'libur': bgClass = 'bg-libur'; textStatus = 'Libur Nasional'; break;
                         case 'weekend': bgClass = 'bg-weekend'; textStatus = 'Akhir Pekan'; break;
+                        case 'lembur': bgClass = 'bg-lembur'; textStatus = 'Kerja Shift / Libur'; break;
                         case 'empty-future': bgClass = 'bg-empty-future'; textStatus = 'Belum Ada Data'; break;
                     }
 
@@ -748,7 +697,7 @@
                 const t = statsObj.totals;
                 document.getElementById('sKerja').innerText = `Hari Kerja Efektif: ${t.workingDays} Hari`;
                 document.getElementById('sHadir').innerText = t.hadir;
-                document.getElementById('sTelat').innerText = t.telat;
+                document.getElementById('sLembur').innerText = t.lembur; 
                 document.getElementById('sAlpha').innerText = t.alpha; 
                 document.getElementById('sLibur').innerText = t.totalLiburOff; 
                 document.getElementById('sPersen').innerText = t.persen + "%";
@@ -763,8 +712,8 @@
                 profileChart = new Chart(ctx, {
                     type: 'doughnut',
                     data: {
-                        labels: ['Hadir Tepat', 'Terlambat', 'Tidak Hadir'],
-                        datasets: [{ data: [t.hadir, t.telat, t.alpha], backgroundColor: ['#0c5a66', '#fde047', '#e13b48'], borderWidth: 0 }]
+                        labels: ['Hadir', 'Kerja Libur', 'Tidak Hadir'],
+                        datasets: [{ data: [t.hadir, t.lembur, t.alpha], backgroundColor: ['#0c5a66', '#0ea5e9', '#e13b48'], borderWidth: 0 }]
                     },
                     options: { maintainAspectRatio: false, plugins: { legend: { position: 'bottom', labels: { boxWidth: 10 } } }, cutout: '70%', animation: { duration: 800, easing: 'easeOutQuart' } }
                 });
@@ -790,12 +739,81 @@
                 bootstrap.Modal.getOrCreateInstance(document.getElementById('profileModal')).show();
             }
 
+            window.lihatRiwayat = function(nama, tgl, id) {
+                document.getElementById('detailNama').innerText = nama;
+                document.getElementById('detailInfo').innerText = `ID: ${id} | Tanggal: ${tgl}`;
+                
+                const timeline = document.getElementById('timelineContainer');
+                timeline.innerHTML = ''; 
+
+                let currentJam = 7;
+                let currentMenit = Math.floor(Math.random() * 30) + 15;
+                const logs = [];
+                const maxLogs = Math.floor(Math.random() * 3) * 2 + 2; 
+                const gerbangList = ['Tripod Utama', 'Gerbang Kantin', 'Pintu Sisi Barat'];
+
+                for(let i=0; i<maxLogs; i++) {
+                    let isMasuk = i % 2 === 0;
+                    if(i > 0) {
+                        currentJam += Math.floor(Math.random() * 2);
+                        currentMenit += Math.floor(Math.random() * 40);
+                        if(currentMenit >= 60) { currentJam++; currentMenit -= 60; }
+                    }
+                    if(i === maxLogs - 1 && currentJam < 16) currentJam = 16; 
+                    
+                    logs.push({
+                        jam: `${String(currentJam).padStart(2,'0')}:${String(currentMenit).padStart(2,'0')}:${String(Math.floor(Math.random()*60)).padStart(2,'0')}`,
+                        aksi: isMasuk ? 'MASUK' : 'KELUAR',
+                        gerbang: gerbangList[Math.floor(Math.random() * gerbangList.length)],
+                        css: isMasuk ? 'marker-masuk' : 'marker-keluar'
+                    });
+                }
+
+                logs.forEach(log => {
+                    timeline.innerHTML += `
+                        <div class="timeline-item">
+                            <div class="timeline-marker ${log.css}"></div>
+                            <div class="timeline-content shadow-sm">
+                                <div class="timeline-time">${log.jam}</div>
+                                <div class="timeline-desc">Aktivitas: <b style="color: ${log.aksi === 'MASUK' ? '#106770' : '#dc3545'};">${log.aksi}</b> via ${log.gerbang}</div>
+                            </div>
+                        </div>
+                    `;
+                });
+
+                bootstrap.Modal.getOrCreateInstance(document.getElementById('modalDetailRiwayat')).show();
+            }
+
+            document.getElementById('btnExportLaporan').addEventListener('click', function(e) {
+                e.preventDefault();
+                if(filteredData.length === 0) return Swal.fire({ icon: 'error', title: 'Data Kosong' });
+
+                let exportData = filteredData.map(d => {
+                    let rowDate = new Date(d.date);
+                    let isWknd = (rowDate.getDay() === 0 || rowDate.getDay() === 6);
+                    let isHldy = liburNasional.includes(d.date);
+                    let textStatus = (isWknd || isHldy) ? 'SHIFT / LEMBUR' : 'HADIR';
+
+                    // Deteksi shift untuk Excel
+                    let hourIn = parseInt(d.inTime.substring(0, 2));
+                    let textShift = (hourIn >= 5 && hourIn < 13) ? 'Pagi' : (hourIn >= 13 && hourIn < 20) ? 'Siang' : 'Malam';
+
+                    return {
+                        "Tanggal": d.date, "Personnel ID": d.id, "Nama Karyawan": d.name, "Departemen": d.dept,
+                        "Indikasi Shift": textShift, "Jam Masuk (AWAL)": d.inTime, "Jam Keluar (AKHIR)": d.outTime, "Status": textStatus
+                    };
+                });
+                
+                const ws = XLSX.utils.json_to_sheet(exportData);
+                const wb = XLSX.utils.book_new();
+                XLSX.utils.book_append_sheet(wb, ws, "Laporan_Absensi");
+                XLSX.writeFile(wb, 'Laporan_Kehadiran_FILO.xlsx');
+            });
+
             document.getElementById('btnModalExport').addEventListener('click', function() {
                 let exportData = [];
                 const monthVal = document.getElementById('modalBulan').value;
-                
                 const monthText = document.getElementById('modalBulan').options[document.getElementById('modalBulan').selectedIndex].text;
-
                 let pesanFilter = monthVal === 'semua' ? 'sepanjang tahun' : `bulan ${monthText}`;
 
                 if (monthVal === 'semua') {
@@ -803,7 +821,7 @@
                         exportData.push({
                             "Nama Karyawan": currentEmployee.name, "Personnel ID": currentEmployee.id, "Departemen": currentEmployee.dept, "Periode Laporan": `${m.monthName} ${m.year}`,
                             "Total Hari": m.totalDays, "Libur Sbt/Mgg": m.weekendDays, "Libur Nasional": m.liburNasionalDays, "Hari Kerja Efektif": m.workingDays,
-                            "Hadir": m.hadir, "Terlambat": m.telat, "Alpha": m.alpha, "On-Time Rate": m.persen + "%"
+                            "Hadir": m.hadir, "Lembur/Shift Libur": m.lembur, "Alpha": m.alpha, "Tingkat Kehadiran": m.persen + "%"
                         });
                     });
                     exportData.push({});
@@ -811,7 +829,7 @@
                     exportData.push({
                         "Nama Karyawan": "TOTAL KESELURUHAN (YTD)", "Personnel ID": "-", "Departemen": "-", "Periode Laporan": currentEmployee.filterName,
                         "Total Hari": t.totalDays, "Libur Sbt/Mgg": t.weekendDays, "Libur Nasional": t.liburNasionalDays, "Hari Kerja Efektif": t.workingDays,
-                        "Hadir": t.hadir, "Terlambat": t.telat, "Alpha": t.alpha, "On-Time Rate": t.persen + "%"
+                        "Hadir": t.hadir, "Lembur/Shift Libur": t.lembur, "Alpha": t.alpha, "Tingkat Kehadiran": t.persen + "%"
                     });
                 } else {
                     let targetMonth = parseInt(monthVal, 10);
@@ -823,15 +841,21 @@
                         let textStatus = '';
                         switch(day.status) {
                             case 'hadir': textStatus = 'Hadir'; break;
-                            case 'telat': textStatus = 'Terlambat'; break;
+                            case 'lembur': textStatus = 'Kerja Shift / Lembur Libur'; break;
                             case 'alpha': textStatus = 'Tidak Hadir (Alpha)'; break;
                             case 'libur': textStatus = 'Libur Nasional'; break;
                             case 'weekend': textStatus = 'Akhir Pekan'; break;
                         }
 
+                        let textShift = '-';
+                        if (day.inTime !== '-') {
+                            let hourIn = parseInt(day.inTime.substring(0, 2));
+                            textShift = (hourIn >= 5 && hourIn < 13) ? 'Pagi' : (hourIn >= 13 && hourIn < 20) ? 'Siang' : 'Malam';
+                        }
+
                         exportData.push({
                             "Nama Karyawan": currentEmployee.name, "Personnel ID": currentEmployee.id, "Departemen": currentEmployee.dept,
-                            "Tanggal": day.date, "Hari": day.dayName, "Jam Masuk (Awal)": day.inTime || '-', "Jam Keluar (Akhir)": day.outTime || '-', "Status Kehadiran": textStatus
+                            "Tanggal": day.date, "Hari": day.dayName, "Indikasi Shift": textShift, "Jam Masuk (Awal)": day.inTime || '-', "Jam Keluar (Akhir)": day.outTime || '-', "Status Kehadiran": textStatus
                         });
                     });
 
@@ -839,14 +863,13 @@
                     const m = currentEmployee.stats.breakdown[0]; 
                     if(m) {
                         exportData.push({
-                            "Nama Karyawan": "TOTAL REKAPITULASI BULAN INI", "Personnel ID": "", "Departemen": "", "Tanggal": "",
-                            "Hari": `Kerja Efektif: ${m.workingDays} Hari`, "Jam Masuk (Awal)": `Hadir: ${m.hadir}`, "Jam Keluar (Akhir)": `Terlambat: ${m.telat}`, "Status Kehadiran": `Alpha: ${m.alpha}`
+                            "Nama Karyawan": "TOTAL REKAPITULASI BULAN INI", "Personnel ID": "", "Departemen": "", "Tanggal": "", "Indikasi Shift": "",
+                            "Hari": `Kerja Efektif: ${m.workingDays} Hari`, "Jam Masuk (Awal)": `Hadir: ${m.hadir}`, "Jam Keluar (Akhir)": `Lembur/Shift: ${m.lembur}`, "Status Kehadiran": `Alpha: ${m.alpha}`
                         });
                     }
                 }
 
                 const worksheet = XLSX.utils.json_to_sheet(exportData);
-                worksheet['!cols'] = [ { wpx: 160 }, { wpx: 110 }, { wpx: 160 }, { wpx: 100 }, { wpx: 80 }, { wpx: 120 }, { wpx: 120 }, { wpx: 130 } ];
                 const workbook = XLSX.utils.book_new();
                 XLSX.utils.book_append_sheet(workbook, worksheet, "Log_Individu");
                 

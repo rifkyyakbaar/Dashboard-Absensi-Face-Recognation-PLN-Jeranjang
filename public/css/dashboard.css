@@ -1,0 +1,93 @@
+.custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
+.custom-scrollbar::-webkit-scrollbar-track { background: #f8f9fa; border-radius: 4px; }
+.custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+.custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+.card {
+    border: 1px solid #cbd5e1 !important;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.02) !important;
+}
+
+.border-l-teal { border-left: 7px solid #106770 !important; }
+.border-l-green { border-left: 7px solid #28a745 !important; }
+.border-l-red { border-left: 7px solid #dc3545 !important; }
+.border-l-purple { border-left: 7px solid #8a2be2 !important; }
+
+.table-striped-custom tbody tr:nth-of-type(odd) td { background-color: #ffffff !important; }
+.table-striped-custom tbody tr:nth-of-type(even) td { background-color: #f8fafc !important; }
+.table-striped-custom tbody tr:hover td { background-color: #f1f5f9 !important; }
+
+.topbar, .navbar, header {
+    transition: transform 0.4s ease-in-out, filter 0.3s ease-in-out !important;
+    z-index: 1030 !important; 
+}
+.topbar.hidden-nav, .navbar.hidden-nav, header.hidden-nav {
+    transform: translateY(-100%) !important;
+}
+
+.sidebar, .main-sidebar, #sidebar, .offcanvas, .app-sidebar, .sidebar-wrapper {
+    z-index: 99999 !important; 
+    padding-top: 0 !important; 
+}
+
+.hero-banner {
+    position: relative;
+    width: 100%;
+    height: 250px; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+    border-radius: 16px;
+    overflow: hidden;
+    
+    clip-path: polygon(
+        0 0, calc(100% - 260px) 0, calc(100% - 255.15px) 0.6px, calc(100% - 250.6px) 2.5px, calc(100% - 246.4px) 5.6px, calc(100% - 242.5px) 10px,
+        calc(100% - 227.5px) 30px, calc(100% - 223.6px) 34.4px, calc(100% - 219.4px) 37.5px, calc(100% - 214.8px) 39.4px, calc(100% - 210px) 40px,
+        calc(100% - 10px) 40px, calc(100% - 5.6px) 40.6px, calc(100% - 2.5px) 42.5px, calc(100% - 0.6px) 45.6px, 100% 50px, 100% 100%, 260px 100%,
+        255.15px calc(100% - 0.6px), 250.6px calc(100% - 2.5px), 246.4px calc(100% - 5.6px), 242.5px calc(100% - 10px), 227.5px calc(100% - 30px),
+        223.6px calc(100% - 34.4px), 219.4px calc(100% - 37.5px), 214.8px calc(100% - 39.4px), 210px calc(100% - 40px), 10px calc(100% - 40px),
+        5.6px calc(100% - 40.6px), 2.5px calc(100% - 42.5px), 0.6px calc(100% - 45.6px), 0 calc(100% - 50px)
+    );
+}
+
+@media (max-width: 768px) {
+    .hero-banner {
+        height: 200px;
+        clip-path: polygon(
+            0 0, calc(100% - 158px) 0, calc(100% - 153px) 1px, calc(100% - 148px) 4px, calc(100% - 134px) 25px, calc(100% - 131px) 28px, 
+            calc(100% - 125px) 30px, calc(100% - 8px) 30px, calc(100% - 3px) 31px, 100% 36px, 100% 100%, 158px 100%, 153px calc(100% - 1px), 
+            148px calc(100% - 4px), 134px calc(100% - 25px), 131px calc(100% - 28px), 125px calc(100% - 30px), 8px calc(100% - 30px), 
+            3px calc(100% - 31px), 0 calc(100% - 36px)
+        );
+    }
+}
+
+.bg-layer-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; }
+.bg-layer-top { position: absolute; top: 0; left: 0; width: 100%; height: 25%; overflow: hidden; }
+.scrolling-bg-top { position: absolute; top: 0; left: -100%; height: 100%; display: flex; width: 200%; animation: scrollBackgroundRight 40s linear infinite; }
+.bg-layer-bottom { position: absolute; bottom: 0; left: 0; width: 100%; height: 75%; overflow: hidden; }
+.scrolling-bg-bottom { position: absolute; top: 0; left: 0; height: 100%; display: flex; width: 200%; animation: scrollBackgroundLeft 40s linear infinite; }
+
+.scrolling-bg-top img, .scrolling-bg-bottom img { width: calc(100% / 12); height: 100%; object-fit: cover; flex-shrink: 0; }
+
+@keyframes scrollBackgroundLeft { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+@keyframes scrollBackgroundRight { 0% { transform: translateX(0); } 100% { transform: translateX(50%); } }
+
+@keyframes flashGreen {
+    0% { background-color: #dcfce7; }
+    100% { background-color: transparent; }
+}
+.new-log-row td {
+    animation: flashGreen 2.5s ease-out forwards;
+}
+
+.hero-overlay {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(135deg, rgba(12, 74, 82, 0.9) 0%, rgba(16, 103, 112, 0.8) 100%); z-index: 1;
+}
+
+.hero-content {
+    position: relative; z-index: 2; color: white; text-align: center; width: 100%; padding: 0 20px;
+}

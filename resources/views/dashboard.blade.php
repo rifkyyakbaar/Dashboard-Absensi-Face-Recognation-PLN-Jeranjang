@@ -6,101 +6,7 @@
 
 @section('content')
 
-    <style>
-        .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
-        .custom-scrollbar::-webkit-scrollbar-track { background: #f8f9fa; border-radius: 4px; }
-        .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
-        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
-
-        .card {
-            border: 1px solid #cbd5e1 !important;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.02) !important;
-        }
-        
-        .border-l-teal { border-left: 7px solid #106770 !important; }
-        .border-l-green { border-left: 7px solid #28a745 !important; }
-        .border-l-red { border-left: 7px solid #dc3545 !important; }
-        .border-l-purple { border-left: 7px solid #8a2be2 !important; }
-
-        .table-striped-custom tbody tr:nth-of-type(odd) td { background-color: #ffffff !important; }
-        .table-striped-custom tbody tr:nth-of-type(even) td { background-color: #f8fafc !important; }
-        .table-striped-custom tbody tr:hover td { background-color: #f1f5f9 !important; }
-
-        .topbar, .navbar, header {
-            transition: transform 0.4s ease-in-out, filter 0.3s ease-in-out !important;
-            z-index: 1030 !important; 
-        }
-        .topbar.hidden-nav, .navbar.hidden-nav, header.hidden-nav {
-            transform: translateY(-100%) !important;
-        }
-
-        .sidebar, .main-sidebar, #sidebar, .offcanvas, .app-sidebar, .sidebar-wrapper {
-            z-index: 99999 !important; 
-            padding-top: 0 !important; 
-        }
-
-        .hero-banner {
-            position: relative;
-            width: 100%;
-            height: 250px; 
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            z-index: 2;
-            border-radius: 16px;
-            overflow: hidden;
-            
-            clip-path: polygon(
-                0 0, calc(100% - 260px) 0, calc(100% - 255.15px) 0.6px, calc(100% - 250.6px) 2.5px, calc(100% - 246.4px) 5.6px, calc(100% - 242.5px) 10px,
-                calc(100% - 227.5px) 30px, calc(100% - 223.6px) 34.4px, calc(100% - 219.4px) 37.5px, calc(100% - 214.8px) 39.4px, calc(100% - 210px) 40px,
-                calc(100% - 10px) 40px, calc(100% - 5.6px) 40.6px, calc(100% - 2.5px) 42.5px, calc(100% - 0.6px) 45.6px, 100% 50px, 100% 100%, 260px 100%,
-                255.15px calc(100% - 0.6px), 250.6px calc(100% - 2.5px), 246.4px calc(100% - 5.6px), 242.5px calc(100% - 10px), 227.5px calc(100% - 30px),
-                223.6px calc(100% - 34.4px), 219.4px calc(100% - 37.5px), 214.8px calc(100% - 39.4px), 210px calc(100% - 40px), 10px calc(100% - 40px),
-                5.6px calc(100% - 40.6px), 2.5px calc(100% - 42.5px), 0.6px calc(100% - 45.6px), 0 calc(100% - 50px)
-            );
-        }
-
-        @media (max-width: 768px) {
-            .hero-banner {
-                height: 200px;
-                clip-path: polygon(
-                    0 0, calc(100% - 158px) 0, calc(100% - 153px) 1px, calc(100% - 148px) 4px, calc(100% - 134px) 25px, calc(100% - 131px) 28px, 
-                    calc(100% - 125px) 30px, calc(100% - 8px) 30px, calc(100% - 3px) 31px, 100% 36px, 100% 100%, 158px 100%, 153px calc(100% - 1px), 
-                    148px calc(100% - 4px), 134px calc(100% - 25px), 131px calc(100% - 28px), 125px calc(100% - 30px), 8px calc(100% - 30px), 
-                    3px calc(100% - 31px), 0 calc(100% - 36px)
-                );
-            }
-        }
-
-        .bg-layer-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; }
-        .bg-layer-top { position: absolute; top: 0; left: 0; width: 100%; height: 25%; overflow: hidden; }
-        .scrolling-bg-top { position: absolute; top: 0; left: -100%; height: 100%; display: flex; width: 200%; animation: scrollBackgroundRight 40s linear infinite; }
-        .bg-layer-bottom { position: absolute; bottom: 0; left: 0; width: 100%; height: 75%; overflow: hidden; }
-        .scrolling-bg-bottom { position: absolute; top: 0; left: 0; height: 100%; display: flex; width: 200%; animation: scrollBackgroundLeft 40s linear infinite; }
-        
-        .scrolling-bg-top img, .scrolling-bg-bottom img { width: calc(100% / 12); height: 100%; object-fit: cover; flex-shrink: 0; }
-
-        @keyframes scrollBackgroundLeft { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-        @keyframes scrollBackgroundRight { 0% { transform: translateX(0); } 100% { transform: translateX(50%); } }
-
-        @keyframes flashGreen {
-            0% { background-color: #dcfce7; }
-            100% { background-color: transparent; }
-        }
-        .new-log-row td {
-            animation: flashGreen 2.5s ease-out forwards;
-        }
-
-        .hero-overlay {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(135deg, rgba(12, 74, 82, 0.9) 0%, rgba(16, 103, 112, 0.8) 100%); z-index: 1;
-        }
-
-        .hero-content {
-            position: relative; z-index: 2; color: white; text-align: center; width: 100%; padding: 0 20px;
-        }
-    </style>
+    <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
 
     <div class="mb-4 mt-2 position-relative">
         <select id="zoneSelect" class="form-select form-select-sm fw-bold shadow-sm position-absolute" style="top: 0px; right: 5px; width: auto; z-index: 3; background-color: #ffffff; color: #106770; border: 0.5px solid #cbd5e1; border-radius: 8px; cursor: pointer; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
@@ -293,7 +199,7 @@
                                     <th class="ps-4 py-3" style="color: #6c757d; font-size: 11px; font-weight: bold; letter-spacing: 0.5px; background-color: #ffffff; border-top: 1px solid #e9ecef; border-bottom: 1px solid #e9ecef;">NAMA/ID</th>
                                     <th class="py-3" style="color: #6c757d; font-size: 11px; font-weight: bold; letter-spacing: 0.5px; background-color: #ffffff; border-top: 1px solid #e9ecef; border-bottom: 1px solid #e9ecef;">WAKTU</th>
                                     <th class="py-3" style="color: #6c757d; font-size: 11px; font-weight: bold; letter-spacing: 0.5px; background-color: #ffffff; border-top: 1px solid #e9ecef; border-bottom: 1px solid #e9ecef;">AKTIVITAS</th>
-                                    <th class="ps-3 py-3" style="color: #6c757d; font-size: 11px; font-weight: bold; letter-spacing: 0.5px; background-color: #ffffff; border-top: 1px solid #e9ecef; border-bottom: 1px solid #e9ecef;">KETERANGAN</th>
+                                    <th class="ps-3 py-3" style="color: #6c757d; font-size: 11px; font-weight: bold; letter-spacing: 0.5px; background-color: #ffffff; border-top: 1px solid #e9ecef; border-bottom: 1px solid #e9ecef;">DEPARTEMEN</th>
                                 </tr>
                             </thead>
                             <tbody id="liveLogBody">
@@ -328,16 +234,15 @@
                         <p class="text-muted" style="font-size: 11px;">Distribusi akses per perangkat</p>
                     </div>
                     <div class="d-flex flex-column align-items-end gap-2">
-                    <select id="filterGateZone" class="form-select form-select-sm d-none" style="width: 130px; border-radius: 6px; font-size: 11px; font-weight: bold; cursor: pointer; border-color: #cbd5e1; background-color: #f1f5f9;">
-                        <option value="semua" selected>Gabungan Zona</option>
-                        <option value="kuning">Zona Kuning</option>
-                        <option value="merah">Zona Merah</option>
-                    </select>
-                    <select id="filterDirectionGate" class="form-select form-select-sm" style="width: 130px; border-radius: 6px; font-size: 11px; font-weight: bold; cursor: pointer; border-color: #cbd5e1;">
-                        <option value="masuk" selected>Arah Masuk</option>
-                        <option value="keluar">Arah Keluar</option>
-                    </select>
-                </div>
+                        <select id="filterGateZone" class="form-select form-select-sm d-none" style="width: 130px; border-radius: 6px; font-size: 11px; font-weight: bold; cursor: pointer; border-color: #cbd5e1; background-color: #f1f5f9;">
+                            <option value="kuning" selected>Zona Kuning</option>
+                            <option value="merah">Zona Merah</option>
+                        </select>
+                        <select id="filterDirectionGate" class="form-select form-select-sm" style="width: 130px; border-radius: 6px; font-size: 11px; font-weight: bold; cursor: pointer; border-color: #cbd5e1;">
+                            <option value="masuk" selected>Arah Masuk</option>
+                            <option value="keluar">Arah Keluar</option>
+                        </select>
+                    </div>
                 </div>
                 <div class="card-body px-4 pb-4 d-flex flex-column justify-content-center align-items-center">
                     <div style="height: 300px; width: 100%;">
@@ -493,18 +398,23 @@
             const firstNames = ["Budi", "Siti", "Agus", "Rina", "Andi", "Dewi", "Eko", "Sri", "Rudi", "Ayu", "Joko", "Fitri", "Dedi", "Indah"];
             const lastNames = ["Santoso", "Aminah", "Pratama", "Wijaya", "Saputra", "Lestari", "Nugroho", "Wahyu", "Hartono", "Kusuma", "Setiawan"];
 
+            // INisialisasi data Log 120 awal
             for (let i = 0; i < 120; i++) {
                 let isMasuk = Math.random() > 0.4;
                 let jam = String(Math.floor(Math.random() * 8) + 6).padStart(2, '0');
                 let menit = String(Math.floor(Math.random() * 60)).padStart(2, '0');
                 let detik = String(Math.floor(Math.random() * 60)).padStart(2, '0');
                 let isTelat = isMasuk && parseInt(jam) >= 8;
+                
+                // Ambil departemen acak untuk data awal
+                let randomDept = listNamaDept[Math.floor(Math.random() * listNamaDept.length)];
 
                 liveLogData.push({
                     nama: firstNames[Math.floor(Math.random() * firstNames.length)] + " " + lastNames[Math.floor(Math.random() * lastNames.length)],
                     waktu: `${jam}:${menit}:${detik}`,
                     aktivitas: isMasuk ? 'MASUK' : 'KELUAR',
                     status: isMasuk ? (isTelat ? 'TERLAMBAT' : 'HADIR') : 'KELUAR',
+                    departemen: randomDept // Data baru disisipkan
                 });
             }
             liveLogData.sort((a, b) => b.waktu.localeCompare(a.waktu));
@@ -521,7 +431,7 @@
             const zoneSelect = document.getElementById('zoneSelect');
             const filterKehadiranDept = document.getElementById('filterKehadiranDept');
             const filterDirectionGate = document.getElementById('filterDirectionGate');
-            const filterGateZone = document.getElementById('filterGateZone'); // Dropdown baru
+            const filterGateZone = document.getElementById('filterGateZone'); 
             const heroTitle = document.getElementById('heroTitle');
             const rekapBody = document.getElementById('rekapDeptBody');
             const tingkatListContainer = document.getElementById('tingkatListContainer');
@@ -544,15 +454,15 @@
                 const selectedFilter = filterKehadiranDept.value; 
                 const selectedGateDirection = filterDirectionGate ? filterDirectionGate.value : 'masuk';
 
-                // LOGIKA UNTUK MENAMPILKAN/MENYEMBUNYIKAN DROPDOWN SUB-ZONA
+                // LOGIKA BARU UNTUK FILTER GERBANG (MEMORI ZONA)
                 let gateZoneKey = selectedZone;
                 if (selectedZone === 'semua') {
                     if(filterGateZone) filterGateZone.classList.remove('d-none');
-                    gateZoneKey = filterGateZone ? filterGateZone.value : 'semua';
+                    gateZoneKey = filterGateZone ? filterGateZone.value : 'kuning'; // Default fallback ke kuning
                 } else {
                     if(filterGateZone) {
                         filterGateZone.classList.add('d-none');
-                        filterGateZone.value = 'semua'; // Reset otomatis saat disembunyikan
+                        filterGateZone.value = selectedZone; // Sinkronkan nilai dropdown ke zona yg sedang aktif
                     }
                 }
                 const dataGate = zoneData[gateZoneKey];
@@ -574,8 +484,8 @@
                     animateValue(document.getElementById('statTamu'), parseInt(document.getElementById('statTamu')?.innerText) || 0, data.tamu, 800);
                 }
 
+                // Update Chart Gerbang dengan gateZoneKey
                 if(gateChart) {
-                    // Pakai data dari dataGate (bukan data utama) agar chart gerbang bisa terisolasi
                     const currentGateData = dataGate.gateData[selectedGateDirection];
                     const currentGateLabels = dataGate.gateLabels; 
                     
@@ -656,7 +566,7 @@
             if(zoneSelect) zoneSelect.addEventListener('change', () => updateDashboard(false));
             if(filterKehadiranDept) filterKehadiranDept.addEventListener('change', () => updateDashboard(false));
             if(filterDirectionGate) filterDirectionGate.addEventListener('change', () => updateDashboard(false));
-            if(filterGateZone) filterGateZone.addEventListener('change', () => updateDashboard(false)); // Listener baru
+            if(filterGateZone) filterGateZone.addEventListener('change', () => updateDashboard(false)); 
             
             updateDashboard(false);
 
@@ -726,11 +636,10 @@
                     let icon = log.aktivitas === 'MASUK' ? '<i class="fa-solid fa-arrow-right" style="transform: rotate(-45deg);"></i>' : '<i class="fa-solid fa-arrow-right" style="transform: rotate(135deg);"></i>';
                     let bgColor = log.aktivitas === 'MASUK' ? '#14a2ba' : '#ff0000';
                     let textColor = log.aktivitas === 'MASUK' ? '#125d72' : '#dc3545';
-                    let badgeBg = log.status === 'HADIR' ? '#dcfce7' : (log.status === 'TERLAMBAT' ? '#fffbeb' : '#e2e8f0');
-                    let badgeText = log.status === 'HADIR' ? '#125d72' : (log.status === 'TERLAMBAT' ? '#d97706' : '#ff0000');
                     
                     let trClass = (index === 0 && currentLogPage === 1) ? 'log-row new-log-row' : 'log-row';
 
+                    // Modifikasi tampilan Departemen pada tabel log
                     liveLogBody.innerHTML += `
                         <tr class="${trClass}">
                             <td class="ps-4 fw-bold" style="color: #1e293b;">${log.nama}</td>
@@ -741,7 +650,9 @@
                                     <span style="color: ${textColor}; font-size: 12px;">${log.aktivitas}</span>
                                 </div>
                             </td>
-                            <td class="ps-3"><span class="badge" style="background-color: ${badgeBg}; color: ${badgeText}; padding: 6px 15px; border-radius: 4px; font-weight: 600; letter-spacing: 0.5px; font-size: 11px;">${log.status}</span></td>
+                            <td class="ps-3 fw-medium text-muted" style="font-size: 11px;">
+                                <span style="font-weight: 600; color: #475569;">${log.departemen}</span>
+                            </td>
                         </tr>
                     `;
                 });
@@ -762,6 +673,7 @@
 
             renderLiveLogs();
 
+            // INTERVAL LIVE DATA UPDATE
             setInterval(() => {
                 const isMasuk = Math.random() > 0.3; 
                 const count = Math.floor(Math.random() * 4) + 1; 
@@ -779,7 +691,6 @@
                     }
                 }
 
-                // Logika agar saat Semua Zona terpilih, simulasi tetap mengisi data Kuning/Merah
                 const randomGate = Math.floor(Math.random() * 4);
                 if (isMasuk) {
                     data.gateData.masuk[randomGate] += count;
@@ -795,8 +706,11 @@
                     }
                 }
 
-                const randomDeptIndex = Math.floor(Math.random() * 15);
+                // Ambil departemen acak dari array listNamaDept sesuai logic perhitungan
+                const randomDeptIndex = Math.floor(Math.random() * listNamaDept.length);
                 const dept = data.departemen[randomDeptIndex];
+                const namaDeptLive = dept.nama; // Ambil namanya untuk disisipkan ke log
+
                 if (isMasuk) {
                     dept.masuk += count;
                     dept.didalam += count;
@@ -843,6 +757,7 @@
                     }
                 }
 
+                // Push data baru ke tabel log dengan nama Departemen
                 for(let c=0; c<count; c++) {
                     const jamStr = String(now.getHours()).padStart(2, '0');
                     const menitStr = String(now.getMinutes()).padStart(2, '0');
@@ -855,6 +770,7 @@
                         waktu: `${jamStr}:${menitStr}:${detikStr}`,
                         aktivitas: isMasuk ? 'MASUK' : 'KELUAR',
                         status: statusBaru,
+                        departemen: namaDeptLive // Menyisipkan nama Departemen di live update
                     });
                 }
                 
